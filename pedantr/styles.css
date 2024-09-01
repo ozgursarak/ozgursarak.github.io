@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+#game-container {
+    max-width: 800px;
+    width: 100%;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+#game-description-box {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#game-description-box p {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    line-height: 1.4;
+}
+
+#input-area {
+    display: flex;
+    gap: 10px;
+}
+
+#guess-input {
+    flex-grow: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+}
+
+#guess-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+#guess-button:hover {
+    background-color: #45a049;
+}
+
+#score {
+    font-size: 18px;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+#heading, #content {
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.word {
+    display: inline-block;
+    background-color: #ccc;
+    height: 1.2em;
+    margin: 0 2px 2px 0;
+    border-radius: 3px;
+    vertical-align: middle;
+    line-height: 1.2em;
+    padding: 0 2px;
+}
+
+.revealed {
+    background-color: transparent;
+    color: black;
+}
+
+.punctuation {
+    display: inline-block;
+    margin: 0 1px;
+    vertical-align: middle;
+}
+
+#word-measure {
+    position: absolute;
+    visibility: hidden;
+    height: auto;
+    width: auto;
+    white-space: nowrap;
+}
+
+#guess-list-container {
+    margin-top: 20px;
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+#guess-list-container h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+#guess-list {
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#guess-list li {
+    background-color: #444;
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#guess-list li:nth-child(odd) {
+    background-color: #3a3a3a;
+}
