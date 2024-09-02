@@ -122,13 +122,13 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
                     this.updateWords(this.contentElement, this.contentWords, guess);
                     this.showMessage(`'${guess}' maddede tam ${occurrences} kere geçiyor!`);
                 } else {
-                    this.showMessage(`'${guess}' maddede bulunmuyor ama sözlüğümüzde var.`);
+                    this.showMessage(`'${guess}' maddede bulunmuyor.`);
                 }
 
                 this.addGuessToList(guess);
                 this.checkWinCondition();
             } else {
-                this.showMessage(`'${guess}' kelimesi sözlüğümüzde yok ve maddede de geçmiyor.`);
+                this.showMessage(`'${guess}' kelimesi sözlüğümüzde yok.`);
             }
         }
         this.guessInput.value = '';
