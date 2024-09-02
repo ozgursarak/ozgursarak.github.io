@@ -109,7 +109,7 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
         const guess = this.guessInput.value.toLowerCase().trim();
         if (guess && !this.guessedWords.has(guess)) {
             const allWords = [...this.headingWords, ...this.contentWords];
-            const matchingWords = allWords.filter(word => word.toLowerCase() === guess);
+            const matchingWords = allWords.filter(word => this.isPartialMatch(word, guess));
             const occurrences = matchingWords.length;
 
             if (occurrences > 0 || this.trie.search(guess)) {
@@ -122,13 +122,13 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
                     this.updateWords(this.contentElement, this.contentWords, guess);
                     this.showMessage(`'${guess}' maddede tam ${occurrences} kere geçiyor!`);
                 } else {
-                    this.showMessage(`'${guess}' maddede bulunmuyor.`);
+                    this.showMessage(`'${guess}' maddede bulunmuyor ama sözlüğümüzde var.`);
                 }
 
                 this.addGuessToList(guess);
                 this.checkWinCondition();
             } else {
-                this.showMessage(`'${guess}' kelimesi sözlüğümüzde yok.`);
+                this.showMessage(`'${guess}' kelimesi sözlüğümüzde yok ve maddede de geçmiyor.`);
             }
         }
         this.guessInput.value = '';
