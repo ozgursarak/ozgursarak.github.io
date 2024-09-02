@@ -9,22 +9,30 @@
 <body>
     <div id="game-container">
         <h1>Wikipedia Maddesi Bilme Oyunu</h1>
-        <div id="game-description-box">
-            <p>Gizli Wikipedia makalesini tahmin edin. Kelimeler girdikçe makale ortaya çıkacak!</p>
-            <div id="input-area">
-                <input type="text" id="guess-input" placeholder="Bir kelime girin">
-                <button id="guess-button">Tahmin Et</button>
+        <div id="game-content">
+            <div id="left-column">
+                <div id="game-description-box">
+                    <p>Gizli Wikipedia makalesini tahmin edin. Kelimeler girdikçe makale ortaya çıkacak!</p>
+                    <div id="input-area">
+                        <input type="text" id="guess-input" placeholder="Bir kelime girin">
+                        <button id="guess-button">Tahmin Et</button>
+                    </div>
+                </div>
+                <div id="article-container">
+                    <div id="heading"></div>
+                    <div id="content"></div>
+                    <div id="loading-indicator">Loading article...</div>
+                </div>
             </div>
-        </div>
-        <div id="score">Tahminler: <span id="score-value">0</span></div>
-        <div id="heading"></div>
-        <div id="content"></div>
-        <div id="guess-list-container">
-            <h2>Tahminler</h2>
-            <ol id="guess-list"></ol>
+            <div id="right-column">
+                <div id="message-box"></div>
+                <div id="guess-list-container">
+                    <h2>Tahminler <span id="score">(<span id="score-value">0</span>)</span></h2>
+                    <ol id="guess-list"></ol>
+                </div>
+            </div>
         </div>
     </div>
     <script src="game.js"></script>
-    <script src="main.js"></script>
 </body>
 </html>

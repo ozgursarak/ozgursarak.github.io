@@ -1,17 +1,13 @@
 body {
     margin: 0;
     padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background-color: #f0f0f0;
     font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
 }
 
 #game-container {
-    max-width: 800px;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 h1 {
@@ -19,24 +15,27 @@ h1 {
     color: #333;
 }
 
-#game-description-box {
-    background-color: #333;
-    color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+#game-content {
+    display: flex;
+    gap: 20px;
 }
 
-#game-description-box p {
-    margin: 0 0 15px 0;
-    font-size: 16px;
-    line-height: 1.4;
+#left-column {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+}
+
+#right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 #input-area {
     display: flex;
     gap: 10px;
+    margin-bottom: 20px;
 }
 
 #guess-input {
@@ -62,16 +61,69 @@ h1 {
     background-color: #45a049;
 }
 
+#article-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow-y: auto;
+    max-height: calc(100vh - 300px); /* Adjusted to account for the new description box */
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+}
+
+#message-box {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    min-height: 40px;
+}
+
 #score {
-    font-size: 18px;
+    font-size: 16px;
+    color: #aaa;
     margin-bottom: 20px;
     text-align: center;
     color: #333;
 }
 
-#heading, #content {
-    margin-bottom: 20px;
-    line-height: 1.5;
+#guess-list-container {
+    background-color: #333;
+    color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#guess-list-container h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#guess-list {
+    list-style-position: inside;
+    padding-left: 0;
+    margin: 0;
+}
+
+#guess-list li {
+    background-color: #444;
+    margin-bottom: 5px;
+    padding: 8px 12px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+#guess-list li:nth-child(odd) {
+    background-color: #3a3a3a;
 }
 
 .word {
@@ -83,11 +135,15 @@ h1 {
     vertical-align: middle;
     line-height: 1.2em;
     padding: 0 2px;
+    color: transparent;
+    user-select: none;
+    min-width: 10px; /* Add this line */
 }
 
 .revealed {
     background-color: transparent;
-    color: black;
+    color: inherit;  /* This will use the color of the parent element */
+    user-select: auto;
 }
 
 .punctuation {
@@ -104,37 +160,75 @@ h1 {
     white-space: nowrap;
 }
 
-#guess-list-container {
-    margin-top: 20px;
+#loading-indicator {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    padding: 20px;
+}
+
+#heading, #content {
+    margin-bottom: 20px;
+}
+
+/* Add this new style for the game description box */
+#game-description-box {
     background-color: #333;
     color: #fff;
     border-radius: 10px;
     padding: 20px;
+    margin-bottom: 20px;
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-#guess-list-container h2 {
-    margin-top: 0;
-    margin-bottom: 15px;
-    color: #fff;
+#game-description-box p {
+    margin: 0 0 15px 0;
+    font-size: 16px;
+    line-height: 1.4;
 }
 
-#guess-list {
-    list-style-position: inside;
-    padding-left: 0;
-    margin: 0;
-    max-height: 200px;
-    overflow-y: auto;
+#heading {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+    line-height: 1.5;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
-#guess-list li {
-    background-color: #444;
-    margin-bottom: 5px;
-    padding: 8px 12px;
-    border-radius: 5px;
-    font-size: 14px;
+#heading .word,
+#heading .revealed,
+#heading .punctuation {
+    font-size: inherit;
+    font-weight: inherit;
+    height: 1.5em;
+    line-height: 1.5em;
+    margin-right: 5px;
 }
 
-#guess-list li:nth-child(odd) {
-    background-color: #3a3a3a;
+#heading .word {
+    display: inline-block;
+    background-color: #ccc;
+    border-radius: 3px;
+    padding: 0 5px;
+    color: transparent;
+    user-select: none;
+}
+
+#heading .revealed {
+    background-color: transparent;
+    color: inherit;
+    user-select: auto;
+    padding: 0;
+}
+
+#heading .punctuation {
+    padding: 0;
+}
+
+#content {
+    font-size: 1em;    /* Keep the content font size as is */
+    margin-bottom: 20px;
 }
