@@ -35,7 +35,9 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
         this.alertElement.id = 'custom-alert';
         document.body.appendChild(this.alertElement);
 
-        this.init();
+        this.trie = new Trie();
+        this.isReady = false;
+        this.loadWordList();
     }
 
     splitIntoWordsAndPunctuation(text) {
@@ -78,25 +80,35 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
     }
 
     makeGuess() {
+        if (!this.isReady) {
+            this.showAlert('Game is not ready yet. Please wait.');
+            return;
+        }
+
         const guess = this.guessInput.value.toLowerCase().trim();
         if (guess && !this.guessedWords.has(guess)) {
-            this.guessedWords.add(guess);
-            this.guessCount++;
-            this.scoreElement.textContent = this.guessCount;
+            if (this.trie.search(guess)) {
+                this.guessedWords.add(guess);
+                this.guessCount++;
+                this.scoreElement.textContent = this.guessCount;
 
-            const allWords = [...this.headingWords, ...this.contentWords];
-            const revealed = allWords.some(word => this.isPartialMatch(word.toLowerCase(), guess));
+                const allWords = [...this.headingWords, ...this.contentWords];
+                const matchingWords = allWords.filter(word => this.isPartialMatch(word.toLowerCase(), guess));
+                const occurrences = matchingWords.length;
 
-            if (revealed) {
-                this.updateWords(this.headingElement, this.headingWords, guess);
-                this.updateWords(this.contentElement, this.contentWords, guess);
-                this.showAlert(`'${guess}' is in the article!`);
+                if (occurrences > 0) {
+                    this.updateWords(this.headingElement, this.headingWords, guess);
+                    this.updateWords(this.contentElement, this.contentWords, guess);
+                    this.showAlert(`'${guess}' maddede tam ${occurrences} kere geçiyor!`);
+                } else {
+                    this.showAlert(`'${guess}' maddede bulunmuyor.`);
+                }
+
+                this.addGuessToList(guess);
+                this.checkWinCondition();
             } else {
-                this.showAlert(`'${guess}' is not in the article.`);
+                this.showAlert(`'${guess}' kelimesi sözlüğümüzde yok.`);
             }
-
-            this.addGuessToList(guess);
-            this.checkWinCondition();
         }
         this.guessInput.value = '';
     }
@@ -144,6 +156,65 @@ Avrupa Birliği'nin temelleri 1951 yılında, altı ülkenin katılımıyla olu�
         setTimeout(() => {
             this.alertElement.classList.remove('show');
         }, 3000);
+    }
+
+    async loadWordList() {
+        const url = 'https://raw.githubusercontent.com/ozgursarak/turkish_words/main/turkish_words.json';
+        try {
+            const response = await fetch(url);
+            const words = await response.json();
+            words.forEach(word => this.trie.insert(word.toLowerCase()));
+            this.isReady = true;
+            console.log('Word list loaded and trie constructed');
+        } catch (error) {
+            console.error('Error loading word list:', error);
+        }
+    }
+}
+
+class TrieNode {
+    constructor() {
+        this.children = {};
+        this.isEndOfWord = false;
+    }
+}
+
+class Trie {
+    constructor() {
+        this.root = new TrieNode();
+    }
+
+    insert(word) {
+        let node = this.root;
+        for (let char of word) {
+            if (!node.children[char]) {
+                node.children[char] = new TrieNode();
+            }
+            node = node.children[char];
+        }
+        node.isEndOfWord = true;
+    }
+
+    search(word) {
+        let node = this.root;
+        for (let char of word) {
+            if (!node.children[char]) {
+                return false;
+            }
+            node = node.children[char];
+        }
+        return node.isEndOfWord;
+    }
+
+    startsWith(prefix) {
+        let node = this.root;
+        for (let char of prefix) {
+            if (!node.children[char]) {
+                return false;
+            }
+            node = node.children[char];
+        }
+        return true;
     }
 }
 
