@@ -1,1 +1,0 @@
-# ozgursarak.github.io
