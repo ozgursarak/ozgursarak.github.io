@@ -1,0 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+/* Global styles */
+body {
+  font-family: 'Roboto', sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(135deg, #ffffff, #f5e6fa);
+  color: #333;
+  opacity: 0; /* Starting point for fade-in animation */
+  transition: opacity 1s ease-in-out;
+}
+body.fade-in {
+  opacity: 1;
+}
+
+/* Headings and text */
+h1 {
+  font-size: 2.4rem;
+  color: #4a0072; /* Dark purple from image */
+  margin-bottom: 10px;
+}
+h2 {
+  color: #b895c5; /* Lighter purple */
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+h3 {
+  color: #4a0072;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 1.3rem;
+  padding-left: 8px;
+  border-left: 3px solid #ff0000; /* Red from image */
+}
+p {
+  line-height: 1.6;
+  font-size: 1.1rem;
+}
+ul {
+  padding-left: 20px;
+  margin: 10px 0;
+}
+
+/* Table styling */
+table {
+  width: 100%;
+  margin: 20px 0;
+  background: #fff;
+  border-collapse: collapse;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+td,
+th {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+/* Table header style */
+th {
+  background-color: #4a0072; /* Dark purple from image */
+  color: #fff;
+  font-weight: bold;
+}
+
+/* Alternating row colors */
+tr:nth-child(even) {
+  background-color: #f5e6fa; /* Very light purple */
+}
+
+/* Hover and interaction effects */
+tr:hover {
+  background-color: #e6d1ef; /* Light purple for hover */
+  transition: background-color 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+/* Click feedback */
+tr.selected {
+  background-color: #ffe5e5 !important; /* Light red */
+  transition: background-color 0.3s ease;
+}
+
+/* Link styles */
+a {
+  color: #ff0000; /* Red from image */
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+a:hover {
+  color: #4a0072; /* Dark purple from image */
+  text-decoration: underline;
+}
